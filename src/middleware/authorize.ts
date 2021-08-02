@@ -11,16 +11,16 @@ const authorize = (req: Request, res: Response, next: NextFunction) => {
     try {
         authHeader = req.header("authorization");
         if (!authHeader)
-            return res.status(401).json("Nie znaleziono nagłówka autoryzacyjnego.");
+            return res.status(401).json({type: "string", err: "Nie znaleziono nagłówka autoryzacyjnego."});
         
         token = authHeader.split(" ")[1];
         if (!token)
-            return res.status(401).json("W nagłówku autoryzacyjnym nie znaleziono tokenu.");
+            return res.status(401).json({type: "string", err: "W nagłówku autoryzacyjnym nie znaleziono tokenu."});
 
         privateKey = fs.readFileSync("./authorization/private.key");
     }
     catch (err) {
-        return res.status(500).json("Błąd podczas otwierania klucza publicznego dekodującego token.");
+        return res.status(500).json({type: "string", err: "Błąd podczas otwierania klucza publicznego dekodującego token."});
     }
 
     try {
@@ -29,7 +29,7 @@ const authorize = (req: Request, res: Response, next: NextFunction) => {
         next();
     }
     catch(err) {
-        return res.status(401).json("Token jest nieważny.");
+        return res.status(401).json({type: "string", err: "Token jest nieważny."});
     }
 }
 

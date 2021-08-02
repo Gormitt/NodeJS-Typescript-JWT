@@ -24,6 +24,7 @@ export const findUser = async (data: LoginData): Promise<SR<User>> => {
         if (rows.length === 0) {
             return {
                 success: false,
+                type: "string",
                 message: "Niepoprawny e-mail lub hasło."
             };
         }
@@ -43,6 +44,7 @@ export const findUser = async (data: LoginData): Promise<SR<User>> => {
         logging.error(NAMESPACE, `DB error [${err.code}]: ${err.message}`);
         return {
             success: false,
+            type: "string",
             message: `Błąd bazy danych [${err.code}]: ${err.message}`
         };
     }
@@ -89,12 +91,14 @@ export const generateTokenPayload = async (loginData: LoginData, storedUser: Use
         else {
             return {
                 success: false,
+                type: "string",
                 message: "Niepoprawny e-mail lub hasło."
             };
         }
     } catch (err) {
         return {
             success: false,
+            type: "string",
             message: "Błąd podczas działania porównywania hasła z hashem."
         }
     }
@@ -115,6 +119,7 @@ export const generateToken = (payload: TokenPayload): SR<string> => {
     } catch (err) {
         return {
             success: false,
+            type: "string",
             message: "Błąd podczas otwierania klucza prywatnego podpisującego autoryzację."
         };
     }

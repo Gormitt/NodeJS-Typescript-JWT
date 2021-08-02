@@ -26,6 +26,7 @@ interface PositiveSR<T>  {
 
 interface NegativeSR {
     success: false;
+    type: string;
     message: string;
 }
 

@@ -2,6 +2,7 @@
 import express from "express";
 import https from "https";
 import bodyParser from "body-parser";
+import cors from "cors";
 // logging system and configuration
 import logging from "./configuration/logging";
 import config from "./configuration/config";
@@ -26,19 +27,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-/** rules of api (what methods are allowed, where request can come from, what kind of headers are allowed) */
-app.use((req, res, next) => {
-    // next line shouldn't be on production (predefine ip's on production!)
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-
-    if (req.method == "OPTIONS") {
-        res.header("Access-Control-Allow-Methods", "GET POST PUT DELETE");
-        return res.status(200).json({});
-    }
-
-    next();
-});
+/** corse middleware */
+app.use(cors());
 
 /** routes */
 app.use("/sessions", sessions);

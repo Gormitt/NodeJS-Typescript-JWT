@@ -13,7 +13,7 @@ const validate = (req: Request, res: Response, next: NextFunction) => {
         // log in console
         logging.error(NAMESPACE, "Errors occured: ", errs.array());
         // return error response
-        return res.status(400).json(errs.array());
+        return res.status(400).json({type: "express_validator", err: errs.array()});
     }
     else {
         // go next
