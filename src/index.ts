@@ -8,6 +8,8 @@ import logging from "./configuration/logging";
 import config from "./configuration/config";
 // import routes
 import sessions from "./routes/sessions";
+import teachers from "./routes/teachers";
+import dictionaries from "./routes/dictionaries";
 
 const NAMESPACE = "Server";
 const app = express();
@@ -32,12 +34,14 @@ app.use(cors());
 
 /** routes */
 app.use("/sessions", sessions);
+app.use("/teachers", teachers);
+app.use("/", dictionaries);
 
 /** unknown route handler - if we pass threw all routes to here, user wants to request unexisting route */
 app.use((req, res, next) => {
-    const err = new Error("Nie znaleziono adresu.");
+    const err = new Error(`Odpytywany adres (${config.server.hostname}:${config.server.port}${req.url}) nie istnieje.`);
     
-    return res.status(404).json({message: err.message});
+    return res.status(404).json({type: "string", err: err.message});
 });
 
 /** start the server with proper configuration */

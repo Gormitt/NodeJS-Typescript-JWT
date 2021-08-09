@@ -20,14 +20,14 @@ export type TokenPayload = {
 }
 
 interface PositiveSR<T>  {
-    success: true;
-    response: T;
+    success: true,
+    response: T
 }
 
 interface NegativeSR {
-    success: false;
-    type: string;
-    message: string;
+    success: false,
+    type: string,
+    message: string
 }
 
 /** 
@@ -36,3 +36,17 @@ interface NegativeSR {
  * - when success is false - it takes form of NegativeSR
  */
 export type SR<T> = PositiveSR<T> | NegativeSR;
+
+/** teacher */
+export type Teacher = {
+    id: number,
+    name: string,
+    surname: string,
+    color: string
+}
+
+/** class */
+export type Class = {
+    id: number,
+    name: string
+}

@@ -164,3 +164,14 @@ create table assignments_c(
     foreign key (activity_id) references activities(id) on delete cascade,
     foreign key (child_id) references children(id) on delete cascade
 );
+
+-- initialize dict
+insert into classes (name) values 
+    ('Terapia indywidualna'),
+    ('Logopedia'),
+    ('Terapia sensoryczna');
+
+insert into types (name, color) values
+    ('Pakiet', '#000000'),
+    ('WWR', '#e32214'),
+    ('Płatne', '#1255db');
